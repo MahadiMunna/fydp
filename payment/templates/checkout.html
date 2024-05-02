@@ -1,0 +1,61 @@
+<!-- checkout.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-success mb-5">Checkout</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Order Detail</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_item %}
+                    <tr>
+                        <td>{{ item.item.name }}</td>
+                        <td>{{ item.get_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3>Total Price: {{ order_total }}</h3>
+
+        </div>
+        <div class="col-md-6">
+            <h3>Shipping Details</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_city">City:</label>
+                    {{ billing_address.city }}
+                </div>
+                <div class="form-group">
+                    <label for="id_postal_code">Postal Code:</label>
+                    {{ billing_address.postal_code }}
+                </div>
+                <div class="form-group">
+                    <label for="id_address">Address:</label>
+                    {{ billing_address.address }}
+                </div>
+                <div class="form-group">
+                    <label for="id_phone_number">Phone Number:</label>
+                    {{ billing_address.phone_number }}
+                </div>
+                <div class="form-group">
+                    <label style="display: inline;" for="id_phone_number">Payment Method:</label>
+                    {{ payment_method.payment_method }}
+                </div>
+                <!-- Add more fields as needed -->
+
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
